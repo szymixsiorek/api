@@ -61,7 +61,6 @@
             padding: 15px;
             margin-bottom: 15px;
             border-radius: 5px;
-            font-family: 'Courier New', monospace;
         }
         
         .method {
@@ -82,13 +81,13 @@
         .endpoint-url {
             color: #333;
             word-break: break-all;
+            font-family: 'Courier New', monospace;
         }
         
         .description {
             color: #666;
             margin-top: 8px;
             font-size: 14px;
-            font-family: Arial, sans-serif;
         }
         
         .example {
@@ -100,16 +99,7 @@
             margin-top: 10px;
             font-family: 'Courier New', monospace;
             font-size: 13px;
-        }
-        
-        .info-box {
-            background: #e3f2fd;
-            border-left: 4px solid #2196f3;
-            padding: 15px;
-            margin-bottom: 15px;
-            border-radius: 5px;
-            color: #1565c0;
-            font-size: 14px;
+            line-height: 1.4;
         }
         
         .warning-box {
@@ -122,6 +112,17 @@
             font-size: 14px;
         }
         
+        .info-box {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            color: #1565c0;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        
         .features {
             list-style: none;
             margin-top: 15px;
@@ -129,17 +130,7 @@
         
         .features li {
             padding: 8px 0;
-            padding-left: 25px;
-            position: relative;
             color: #555;
-        }
-        
-        .features li:before {
-            content: "✓";
-            position: absolute;
-            left: 0;
-            color: #667eea;
-            font-weight: bold;
         }
         
         .footer {
@@ -161,54 +152,50 @@
 </head>
 <body>
     <div class="container">
-        <h1>🚀 szymixsiorek API</h1>
+        <h1>szymixsiorek API</h1>
         <p class="subtitle">Cloudflare Workers - Production API</p>
         
         <div class="warning-box">
-            ⚠️ Wszystkie endpoints (poza tą stroną) wymagają nagłówka: <code>X-API-Key: chujcinamatke</code>
+            Wszystkie endpoints wymagaja naglowka: <code>X-API-Key: chujcinamatke</code>
         </div>
         
         <div class="section">
-            <h2>📌 O API</h2>
+            <h2>O API</h2>
             <p style="color: #666; line-height: 1.6;">
-                To jest prywatne API dostępne tylko z odpowiednim kluczem autoryzacyjnym. 
-                API obsługuje operacje CRUD na danych przechowywanych w Cloudflare KV Storage.
+                To jest prywatne API dostepne tylko z odpowiednim kluczem autoryzacyjnym. 
+                API obsluguje operacje CRUD na danych przechowywanych w Cloudflare KV Storage.
             </p>
             <ul class="features">
                 <li>Autoryzacja poprzez X-API-Key header</li>
                 <li>Przechowywanie danych w KV Storage</li>
-                <li>Obsługa GET, POST, PUT, DELETE</li>
+                <li>Obsluga GET, POST, PUT, DELETE</li>
                 <li>Zwracanie JSON</li>
+                <li>Opcjonalny custom ID przy dodawaniu</li>
             </ul>
         </div>
         
         <div class="section">
-            <h2>🔌 Dostępne Endpoints</h2>
+            <h2>Dostepne Endpoints</h2>
             
             <div class="api-endpoint">
                 <span class="method get">GET</span>
                 <span class="endpoint-url">/v1</span>
-                <p class="description">Główny endpoint API - zwraca listę dostępnych operacji</p>
-                <div class="example">
-curl https://api.szymixsiorek.workers.dev/v1 -H "X-API-Key: chujcinamatke"
-                </div>
+                <p class="description">Glowny endpoint API - zwraca liste dostepnych operacji</p>
             </div>
             
             <div class="api-endpoint">
                 <span class="method get">GET</span>
                 <span class="endpoint-url">/v1/data</span>
                 <p class="description">Pobiera wszystkie elementy</p>
-                <div class="example">
-curl https://api.szymixsiorek.workers.dev/v1/data -H "X-API-Key: chujcinamatke"
-                </div>
             </div>
             
             <div class="api-endpoint">
                 <span class="method post">POST</span>
                 <span class="endpoint-url">/v1/data</span>
-                <p class="description">Dodaje nowy element (wymagane: name)</p>
-                <div class="example">
-curl -X POST https://api.szymixsiorek.workers.dev/v1/data -H "X-API-Key: chujcinamatke" -H "Content-Type: application/json" -d "{\"name\": \"Test\", \"value\": 123}"
+                <p class="description">Dodaje nowy element (wymagane: name, opcjonalnie: id)</p>
+                <div class="info-box">
+                    <strong>Custom ID:</strong> Mozesz podac wlasne ID w polu "id".<br>
+                    Jesli ID jest zajete, API automatycznie przydzieli nearest available ID i zwroci informacje o zmianie.
                 </div>
             </div>
             
@@ -216,48 +203,86 @@ curl -X POST https://api.szymixsiorek.workers.dev/v1/data -H "X-API-Key: chujcin
                 <span class="method get">GET</span>
                 <span class="endpoint-url">/v1/data/{id}</span>
                 <p class="description">Pobiera konkretny element</p>
-                <div class="example">
-curl https://api.szymixsiorek.workers.dev/v1/data/1234567890 -H "X-API-Key: chujcinamatke"
-                </div>
             </div>
             
             <div class="api-endpoint">
                 <span class="method put">PUT</span>
                 <span class="endpoint-url">/v1/data/{id}</span>
-                <p class="description">Edytuje istniejący element</p>
-                <div class="example">
-curl -X PUT https://api.szymixsiorek.workers.dev/v1/data/1234567890 -H "X-API-Key: chujcinamatke" -H "Content-Type: application/json" -d "{\"name\": \"Nowa nazwa\"}"
-                </div>
+                <p class="description">Edytuje istniejacy element</p>
             </div>
             
             <div class="api-endpoint">
                 <span class="method delete">DELETE</span>
                 <span class="endpoint-url">/v1/data/{id}</span>
                 <p class="description">Usuwa element</p>
-                <div class="example">
-curl -X DELETE https://api.szymixsiorek.workers.dev/v1/data/1234567890 -H "X-API-Key: chujcinamatke"
-                </div>
             </div>
         </div>
         
         <div class="section">
-            <h2>📝 Struktura Danych</h2>
-            <p style="color: #666; margin-bottom: 10px;">Każdy element ma następującą strukturę:</p>
+            <h2>Struktura Danych</h2>
+            <p style="color: #666; margin-bottom: 10px;">Kazdy element ma nastepujaca strukture:</p>
             <div class="example">
 {
-  "id": "1731675540123",
-  "name": "string",
-  "description": "string (opcjonalny)",
-  "value": "any (opcjonalny)",
-  "created_at": "ISO 8601 timestamp",
-  "updated_at": "ISO 8601 timestamp"
+  "id": "123",                   // custom ID lub timestamp
+  "name": "string",              // wymagane
+  "description": "string",       // opcjonalnie
+  "value": any,                  // opcjonalnie
+  "created_at": "ISO 8601",
+  "updated_at": "ISO 8601"
 }
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Przyklady Uzycia</h2>
+            
+            <h3 style="color: #555; margin-bottom: 10px; margin-top: 15px;">Pobierz wszystkie elementy</h3>
+            <div class="example">
+curl https://api.szymixsiorek.workers.dev/v1/data \
+  -H "X-API-Key: chujcinamatke"
+            </div>
+
+            <h3 style="color: #555; margin-bottom: 10px; margin-top: 15px;">Dodaj element z custom ID</h3>
+            <div class="example">
+curl -X POST https://api.szymixsiorek.workers.dev/v1/data \
+  -H "X-API-Key: chujcinamatke" \
+  -H "Content-Type: application/json" \
+  -d '{"name":"Test","id":"100"}'
+
+Jesli ID 100 jest zajete:
+{
+  "status": "ok",
+  "message": "Requested ID (100) is taken. Using ID: 101",
+  "item": {...}
+}
+            </div>
+
+            <h3 style="color: #555; margin-bottom: 10px; margin-top: 15px;">Dodaj element bez custom ID (auto-generate)</h3>
+            <div class="example">
+curl -X POST https://api.szymixsiorek.workers.dev/v1/data \
+  -H "X-API-Key: chujcinamatke" \
+  -H "Content-Type: application/json" \
+  -d '{"name":"Test"}'
+            </div>
+
+            <h3 style="color: #555; margin-bottom: 10px; margin-top: 15px;">Edytuj element</h3>
+            <div class="example">
+curl -X PUT https://api.szymixsiorek.workers.dev/v1/data/100 \
+  -H "X-API-Key: chujcinamatke" \
+  -H "Content-Type: application/json" \
+  -d '{"name":"Nowa nazwa","value":999}'
+            </div>
+
+            <h3 style="color: #555; margin-bottom: 10px; margin-top: 15px;">Usun element</h3>
+            <div class="example">
+curl -X DELETE https://api.szymixsiorek.workers.dev/v1/data/100 \
+  -H "X-API-Key: chujcinamatke"
             </div>
         </div>
         
         <div class="footer">
-            <p>🔧 API Worker | Powered by Cloudflare Workers</p>
-            <p style="margin-top: 5px; font-size: 11px;">Wersja 2.0 | Domyślny endpoint: /v1</p>
+            <p>API Worker | Powered by Cloudflare Workers</p>
+            <p style="margin-top: 5px; font-size: 11px;">Wersja 2.3 | Custom ID Support</p>
         </div>
     </div>
 </body>
