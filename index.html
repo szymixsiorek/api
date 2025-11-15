@@ -511,7 +511,7 @@
             
             <div class="info-box">
                 <strong>ℹ️ Wszystkie endpointy (oprócz /v1/keys/generate) wymagają klucza API w headerze:</strong><br>
-                <code>-H "X-API-Key: YOUR_API_KEY"</code>
+                <code>-H "X-API-Key: YOUR_KEY"</code>
             </div>
 
             <!-- INFO ENDPOINTS -->
@@ -526,7 +526,7 @@
                     <div class="endpoint-desc">Overview wszystkich operacji - główny endpoint API</div>
                     <div class="endpoint-example">
                         <div class="example-label">Przykład:</div>
-                        <div class="example-code" id="code-1">curl https://api.szymixsiorek.workers.dev/v1 -H "X-API-Key: chujcinamatke"</div>
+                        <div class="example-code" id="code-1">curl https://api.szymixsiorek.workers.dev/v1 -H "X-API-Key: YOUR_KEY"</div>
                         <button class="copy-btn" onclick="copyCode('code-1')">Kopiuj</button>
                     </div>
                 </div>
@@ -539,7 +539,7 @@
                     <div class="endpoint-desc">Informacje o workerze i jego konfiguracji</div>
                     <div class="endpoint-example">
                         <div class="example-label">Przykład:</div>
-                        <div class="example-code" id="code-2">curl https://api.szymixsiorek.workers.dev/v1/info -H "X-API-Key: chujcinamatke"</div>
+                        <div class="example-code" id="code-2">curl https://api.szymixsiorek.workers.dev/v1/info -H "X-API-Key: YOUR_KEY"</div>
                         <button class="copy-btn" onclick="copyCode('code-2')">Kopiuj</button>
                     </div>
                 </div>
@@ -552,7 +552,7 @@
                     <div class="endpoint-desc">Test endpoint - sprawdzenie czy API jest dostępne i klucz jest prawidłowy</div>
                     <div class="endpoint-example">
                         <div class="example-label">Przykład:</div>
-                        <div class="example-code" id="code-3">curl https://api.szymixsiorek.workers.dev/v1/test -H "X-API-Key: chujcinamatke"</div>
+                        <div class="example-code" id="code-3">curl https://api.szymixsiorek.workers.dev/v1/test -H "X-API-Key: YOUR_KEY"</div>
                         <button class="copy-btn" onclick="copyCode('code-3')">Kopiuj</button>
                     </div>
                 </div>
@@ -592,7 +592,7 @@
                     <div class="endpoint-desc">Pobiera listę wszystkich obrazów z metadanymi</div>
                     <div class="endpoint-example">
                         <div class="example-label">Przykład:</div>
-                        <div class="example-code" id="code-5">curl https://api.szymixsiorek.workers.dev/v1/images -H "X-API-Key: chujcinamatke"</div>
+                        <div class="example-code" id="code-5">curl https://api.szymixsiorek.workers.dev/v1/images -H "X-API-Key: YOUR_KEY"</div>
                         <button class="copy-btn" onclick="copyCode('code-5')">Kopiuj</button>
                     </div>
                     <div class="endpoint-response">
@@ -609,12 +609,12 @@
                     <div class="endpoint-desc">Wgraj nowy obraz na serwer. Obraz wygaśnie po 24h.</div>
                     <div class="endpoint-example">
                         <div class="example-label">Przykład (PNG):</div>
-                        <div class="example-code" id="code-6">curl -X POST https://api.szymixsiorek.workers.dev/v1/images/upload -H "X-API-Key: chujcinamatke" -H "Content-Type: image/png" --data-binary @"C:\Users\Szymon\Downloads\image.png"</div>
+                        <div class="example-code" id="code-6">curl -X POST https://api.szymixsiorek.workers.dev/v1/images/upload -H "X-API-Key: YOUR_KEY" -H "Content-Type: image/png" --data-binary @"C:\Users\Szymon\Downloads\image.png"</div>
                         <button class="copy-btn" onclick="copyCode('code-6')">Kopiuj</button>
                     </div>
                     <div class="endpoint-example">
                         <div class="example-label">Przykład (JPEG):</div>
-                        <div class="example-code" id="code-7">curl -X POST https://api.szymixsiorek.workers.dev/v1/images/upload -H "X-API-Key: chujcinamatke" -H "Content-Type: image/jpeg" --data-binary @"C:\Users\Szymon\Downloads\image.jpg"</div>
+                        <div class="example-code" id="code-7">curl -X POST https://api.szymixsiorek.workers.dev/v1/images/upload -H "X-API-Key: YOUR_KEY" -H "Content-Type: image/jpeg" --data-binary @"C:\Users\Szymon\Downloads\image.jpg"</div>
                         <button class="copy-btn" onclick="copyCode('code-7')">Kopiuj</button>
                     </div>
                     <div class="endpoint-response">
@@ -645,7 +645,7 @@
                     <div class="endpoint-desc">Usuń obraz z serwera</div>
                     <div class="endpoint-example">
                         <div class="example-label">Przykład:</div>
-                        <div class="example-code" id="code-9">curl -X DELETE https://api.szymixsiorek.workers.dev/v1/images/img_GlcsZAW7ZOaFcZwV -H "X-API-Key: chujcinamatke"</div>
+                        <div class="example-code" id="code-9">curl -X DELETE https://api.szymixsiorek.workers.dev/v1/images/img_GlcsZAW7ZOaFcZwV -H "X-API-Key: YOUR_KEY"</div>
                         <button class="copy-btn" onclick="copyCode('code-9')">Kopiuj</button>
                     </div>
                 </div>
@@ -663,7 +663,7 @@
                     <div class="endpoint-desc">Pobiera wszystkie elementy z bazy danych</div>
                     <div class="endpoint-example">
                         <div class="example-label">Przykład:</div>
-                        <div class="example-code" id="code-10">curl https://api.szymixsiorek.workers.dev/v1/data -H "X-API-Key: chujcinamatke"</div>
+                        <div class="example-code" id="code-10">curl https://api.szymixsiorek.workers.dev/v1/data -H "X-API-Key: YOUR_KEY"</div>
                         <button class="copy-btn" onclick="copyCode('code-10')">Kopiuj</button>
                     </div>
                 </div>
@@ -676,12 +676,12 @@
                     <div class="endpoint-desc">Dodaj nowy element. Wymagane: <code>name</code>. Opcjonalnie: <code>id</code>, <code>description</code>, <code>value</code></div>
                     <div class="endpoint-example">
                         <div class="example-label">Bez custom ID (auto-generate):</div>
-                        <div class="example-code" id="code-11">curl -X POST https://api.szymixsiorek.workers.dev/v1/data -H "X-API-Key: chujcinamatke" -H "Content-Type: application/json" -d "{\"name\":\"Test Element\",\"description\":\"Opis\",\"value\":123}"</div>
+                        <div class="example-code" id="code-11">curl -X POST https://api.szymixsiorek.workers.dev/v1/data -H "X-API-Key: YOUR_KEY" -H "Content-Type: application/json" -d "{\"name\":\"Test Element\",\"description\":\"Opis\",\"value\":123}"</div>
                         <button class="copy-btn" onclick="copyCode('code-11')">Kopiuj</button>
                     </div>
                     <div class="endpoint-example">
                         <div class="example-label">Z custom ID:</div>
-                        <div class="example-code" id="code-12">curl -X POST https://api.szymixsiorek.workers.dev/v1/data -H "X-API-Key: chujcinamatke" -H "Content-Type: application/json" -d "{\"name\":\"Test\",\"id\":\"100\",\"value\":999}"</div>
+                        <div class="example-code" id="code-12">curl -X POST https://api.szymixsiorek.workers.dev/v1/data -H "X-API-Key: YOUR_KEY" -H "Content-Type: application/json" -d "{\"name\":\"Test\",\"id\":\"100\",\"value\":999}"</div>
                         <button class="copy-btn" onclick="copyCode('code-12')">Kopiuj</button>
                     </div>
                     <div class="info-box" style="margin-top: 10px;"><strong>⚠️ Jeśli ID jest zajęte:</strong> API automatycznie przydzieli nearest available ID (np. 101, 102...)</div>
@@ -695,7 +695,7 @@
                     <div class="endpoint-desc">Pobiera konkretny element po ID</div>
                     <div class="endpoint-example">
                         <div class="example-label">Przykład:</div>
-                        <div class="example-code" id="code-13">curl https://api.szymixsiorek.workers.dev/v1/data/100 -H "X-API-Key: chujcinamatke"</div>
+                        <div class="example-code" id="code-13">curl https://api.szymixsiorek.workers.dev/v1/data/100 -H "X-API-Key: YOUR_KEY"</div>
                         <button class="copy-btn" onclick="copyCode('code-13')">Kopiuj</button>
                     </div>
                 </div>
@@ -708,12 +708,12 @@
                     <div class="endpoint-desc">Edytuje istniejący element. Możesz zaktualizować: <code>name</code>, <code>description</code>, <code>value</code></div>
                     <div class="endpoint-example">
                         <div class="example-label">Zmiana nazwy i wartości:</div>
-                        <div class="example-code" id="code-14">curl -X PUT https://api.szymixsiorek.workers.dev/v1/data/100 -H "X-API-Key: chujcinamatke" -H "Content-Type: application/json" -d "{\"name\":\"Nowa nazwa\",\"value\":999}"</div>
+                        <div class="example-code" id="code-14">curl -X PUT https://api.szymixsiorek.workers.dev/v1/data/100 -H "X-API-Key: YOUR_KEY" -H "Content-Type: application/json" -d "{\"name\":\"Nowa nazwa\",\"value\":999}"</div>
                         <button class="copy-btn" onclick="copyCode('code-14')">Kopiuj</button>
                     </div>
                     <div class="endpoint-example">
                         <div class="example-label">Zmiana tylko opisu:</div>
-                        <div class="example-code" id="code-15">curl -X PUT https://api.szymixsiorek.workers.dev/v1/data/100 -H "X-API-Key: chujcinamatke" -H "Content-Type: application/json" -d "{\"description\":\"Nowy opis\"}"</div>
+                        <div class="example-code" id="code-15">curl -X PUT https://api.szymixsiorek.workers.dev/v1/data/100 -H "X-API-Key: YOUR_KEY" -H "Content-Type: application/json" -d "{\"description\":\"Nowy opis\"}"</div>
                         <button class="copy-btn" onclick="copyCode('code-15')">Kopiuj</button>
                     </div>
                 </div>
@@ -726,7 +726,7 @@
                     <div class="endpoint-desc">Usuwa element z bazy danych</div>
                     <div class="endpoint-example">
                         <div class="example-label">Przykład:</div>
-                        <div class="example-code" id="code-16">curl -X DELETE https://api.szymixsiorek.workers.dev/v1/data/100 -H "X-API-Key: chujcinamatke"</div>
+                        <div class="example-code" id="code-16">curl -X DELETE https://api.szymixsiorek.workers.dev/v1/data/100 -H "X-API-Key: YOUR_KEY"</div>
                         <button class="copy-btn" onclick="copyCode('code-16')">Kopiuj</button>
                     </div>
                 </div>
