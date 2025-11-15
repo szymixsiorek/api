@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>szymixsiorek API</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            max-width: 900px;
+            width: 100%;
+            padding: 40px;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+        
+        .section {
+            margin-bottom: 30px;
+        }
+        
+        h2 {
+            color: #667eea;
+            font-size: 20px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+        
+        .api-endpoint {
+            background: #f5f5f5;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .method {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-weight: bold;
+            margin-right: 10px;
+            color: white;
+            font-size: 12px;
+        }
+        
+        .get { background: #61affe; }
+        .post { background: #49cc90; }
+        .put { background: #fca130; }
+        .delete { background: #f93e3e; }
+        
+        .endpoint-url {
+            color: #333;
+            word-break: break-all;
+        }
+        
+        .description {
+            color: #666;
+            margin-top: 8px;
+            font-size: 14px;
+            font-family: Arial, sans-serif;
+        }
+        
+        .example {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin-top: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+        }
+        
+        .info-box {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            color: #1565c0;
+            font-size: 14px;
+        }
+        
+        .warning-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            color: #856404;
+            font-size: 14px;
+        }
+        
+        .features {
+            list-style: none;
+            margin-top: 15px;
+        }
+        
+        .features li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+            color: #555;
+        }
+        
+        .features li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            color: #999;
+            font-size: 12px;
+        }
+
+        code {
+            background: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 szymixsiorek API</h1>
+        <p class="subtitle">Cloudflare Workers - Production API</p>
+        
+        <div class="warning-box">
+            ⚠️ Wszystkie endpoints (poza tą stroną) wymagają nagłówka: <code>X-API-Key: chujcinamatke</code>
+        </div>
+        
+        <div class="section">
+            <h2>📌 O API</h2>
+            <p style="color: #666; line-height: 1.6;">
+                To jest prywatne API dostępne tylko z odpowiednim kluczem autoryzacyjnym. 
+                API obsługuje operacje CRUD na danych przechowywanych w Cloudflare KV Storage.
+            </p>
+            <ul class="features">
+                <li>Autoryzacja poprzez X-API-Key header</li>
+                <li>Przechowywanie danych w KV Storage</li>
+                <li>Obsługa GET, POST, PUT, DELETE</li>
+                <li>Zwracanie JSON</li>
+            </ul>
+        </div>
+        
+        <div class="section">
+            <h2>🔌 Dostępne Endpoints</h2>
+            
+            <div class="api-endpoint">
+                <span class="method get">GET</span>
+                <span class="endpoint-url">/v1</span>
+                <p class="description">Główny endpoint API - zwraca listę dostępnych operacji</p>
+                <div class="example">
+curl https://api.szymixsiorek.workers.dev/v1 -H "X-API-Key: chujcinamatke"
+                </div>
+            </div>
+            
+            <div class="api-endpoint">
+                <span class="method get">GET</span>
+                <span class="endpoint-url">/v1/data</span>
+                <p class="description">Pobiera wszystkie elementy</p>
+                <div class="example">
+curl https://api.szymixsiorek.workers.dev/v1/data -H "X-API-Key: chujcinamatke"
+                </div>
+            </div>
+            
+            <div class="api-endpoint">
+                <span class="method post">POST</span>
+                <span class="endpoint-url">/v1/data</span>
+                <p class="description">Dodaje nowy element (wymagane: name)</p>
+                <div class="example">
+curl -X POST https://api.szymixsiorek.workers.dev/v1/data -H "X-API-Key: chujcinamatke" -H "Content-Type: application/json" -d "{\"name\": \"Test\", \"value\": 123}"
+                </div>
+            </div>
+            
+            <div class="api-endpoint">
+                <span class="method get">GET</span>
+                <span class="endpoint-url">/v1/data/{id}</span>
+                <p class="description">Pobiera konkretny element</p>
+                <div class="example">
+curl https://api.szymixsiorek.workers.dev/v1/data/1234567890 -H "X-API-Key: chujcinamatke"
+                </div>
+            </div>
+            
+            <div class="api-endpoint">
+                <span class="method put">PUT</span>
+                <span class="endpoint-url">/v1/data/{id}</span>
+                <p class="description">Edytuje istniejący element</p>
+                <div class="example">
+curl -X PUT https://api.szymixsiorek.workers.dev/v1/data/1234567890 -H "X-API-Key: chujcinamatke" -H "Content-Type: application/json" -d "{\"name\": \"Nowa nazwa\"}"
+                </div>
+            </div>
+            
+            <div class="api-endpoint">
+                <span class="method delete">DELETE</span>
+                <span class="endpoint-url">/v1/data/{id}</span>
+                <p class="description">Usuwa element</p>
+                <div class="example">
+curl -X DELETE https://api.szymixsiorek.workers.dev/v1/data/1234567890 -H "X-API-Key: chujcinamatke"
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>📝 Struktura Danych</h2>
+            <p style="color: #666; margin-bottom: 10px;">Każdy element ma następującą strukturę:</p>
+            <div class="example">
+{
+  "id": "1731675540123",
+  "name": "string",
+  "description": "string (opcjonalny)",
+  "value": "any (opcjonalny)",
+  "created_at": "ISO 8601 timestamp",
+  "updated_at": "ISO 8601 timestamp"
+}
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>🔧 API Worker | Powered by Cloudflare Workers</p>
+            <p style="margin-top: 5px; font-size: 11px;">Wersja 2.0 | Domyślny endpoint: /v1</p>
+        </div>
+    </div>
+</body>
+</html>
