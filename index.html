@@ -70,41 +70,148 @@
             border-radius: 0 10px 10px 10px;
             padding: 30px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            max-height: 80vh;
+            overflow-y: auto;
         }
 
         .tab-content.active {
             display: block;
         }
 
-        /* API DOCS */
-        .api-section {
+        /* DOCUMENTATION STYLES */
+        .doc-section {
             margin-bottom: 30px;
         }
 
-        .api-section h2 {
+        .doc-section h2 {
             color: #667eea;
             margin-bottom: 15px;
-            font-size: 1.3em;
+            font-size: 1.5em;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
         }
 
-        .endpoint {
-            background: #f5f5f5;
-            padding: 15px;
+        .doc-section h3 {
+            color: #333;
+            margin-top: 20px;
             margin-bottom: 10px;
-            border-left: 4px solid #667eea;
-            border-radius: 5px;
+            font-size: 1.1em;
         }
 
-        .endpoint-title {
+        .endpoint-card {
+            background: #f5f5f5;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        .endpoint-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .method-badge {
+            background: #667eea;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-weight: bold;
+            font-size: 12px;
+            min-width: 50px;
+            text-align: center;
+        }
+
+        .method-badge.get { background: #4caf50; }
+        .method-badge.post { background: #2196F3; }
+        .method-badge.put { background: #ff9800; }
+        .method-badge.delete { background: #f44336; }
+
+        .endpoint-path {
+            font-family: 'Courier New', monospace;
             font-weight: bold;
             color: #333;
-            margin-bottom: 8px;
-            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
         }
 
         .endpoint-desc {
             color: #666;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .endpoint-example {
+            background: #e0e0e0;
+            padding: 12px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            position: relative;
+        }
+
+        .example-label {
+            font-weight: bold;
+            color: #333;
             font-size: 0.9em;
+            margin-bottom: 8px;
+        }
+
+        .example-code {
+            font-family: 'Courier New', monospace;
+            font-size: 0.85em;
+            color: #1a1a1a;
+            background: white;
+            padding: 10px;
+            border-radius: 3px;
+            word-break: break-all;
+            position: relative;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: background 0.3s;
+        }
+
+        .copy-btn:hover {
+            background: #5568d3;
+        }
+
+        .endpoint-response {
+            background: #e8f5e9;
+            padding: 12px;
+            border-radius: 5px;
+            margin-top: 10px;
+            border-left: 3px solid #4caf50;
+        }
+
+        .response-label {
+            font-weight: bold;
+            color: #2e7d32;
+            font-size: 0.9em;
+            margin-bottom: 8px;
+        }
+
+        .info-box {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .info-box strong {
+            color: #ff6b00;
         }
 
         /* KEY GENERATOR */
@@ -394,66 +501,250 @@
         <h1>🚀 szymixsiorek API</h1>
 
         <div class="tabs">
-            <button class="tab-btn active" onclick="switchTab('api')">📚 API Documentation</button>
+            <button class="tab-btn active" onclick="switchTab('docs')">📚 Documentation</button>
             <button class="tab-btn" onclick="switchTab('keygen')">🔑 Generate API Key</button>
             <button class="tab-btn" onclick="switchTab('gallery')">📸 Image Gallery</button>
         </div>
 
-        <!-- API TAB -->
-        <div id="api" class="tab-content active">
-            <div class="api-section">
-                <h2>🔑 API Key Management</h2>
-                <div class="endpoint">
-                    <div class="endpoint-title">POST /v1/keys/generate</div>
-                    <div class="endpoint-desc">Generuj nowy klucz API - publiczny endpoint</div>
+        <!-- DOCUMENTATION TAB -->
+        <div id="docs" class="tab-content active">
+            
+            <div class="info-box">
+                <strong>ℹ️ Wszystkie endpointy (oprócz /v1/keys/generate) wymagają klucza API w headerze:</strong><br>
+                <code>-H "X-API-Key: YOUR_API_KEY"</code>
+            </div>
+
+            <!-- INFO ENDPOINTS -->
+            <div class="doc-section">
+                <h2>ℹ️ Info Endpoints</h2>
+
+                <div class="endpoint-card">
+                    <div class="endpoint-header">
+                        <span class="method-badge get">GET</span>
+                        <span class="endpoint-path">/v1</span>
+                    </div>
+                    <div class="endpoint-desc">Overview wszystkich operacji - główny endpoint API</div>
+                    <div class="endpoint-example">
+                        <div class="example-label">Przykład:</div>
+                        <div class="example-code" id="code-1">curl https://api.szymixsiorek.workers.dev/v1 -H "X-API-Key: chujcinamatke"</div>
+                        <button class="copy-btn" onclick="copyCode('code-1')">Kopiuj</button>
+                    </div>
+                </div>
+
+                <div class="endpoint-card">
+                    <div class="endpoint-header">
+                        <span class="method-badge get">GET</span>
+                        <span class="endpoint-path">/v1/info</span>
+                    </div>
+                    <div class="endpoint-desc">Informacje o workerze i jego konfiguracji</div>
+                    <div class="endpoint-example">
+                        <div class="example-label">Przykład:</div>
+                        <div class="example-code" id="code-2">curl https://api.szymixsiorek.workers.dev/v1/info -H "X-API-Key: chujcinamatke"</div>
+                        <button class="copy-btn" onclick="copyCode('code-2')">Kopiuj</button>
+                    </div>
+                </div>
+
+                <div class="endpoint-card">
+                    <div class="endpoint-header">
+                        <span class="method-badge get">GET</span>
+                        <span class="endpoint-path">/v1/test</span>
+                    </div>
+                    <div class="endpoint-desc">Test endpoint - sprawdzenie czy API jest dostępne i klucz jest prawidłowy</div>
+                    <div class="endpoint-example">
+                        <div class="example-label">Przykład:</div>
+                        <div class="example-code" id="code-3">curl https://api.szymixsiorek.workers.dev/v1/test -H "X-API-Key: chujcinamatke"</div>
+                        <button class="copy-btn" onclick="copyCode('code-3')">Kopiuj</button>
+                    </div>
                 </div>
             </div>
 
-            <div class="api-section">
+            <!-- KEY MANAGEMENT -->
+            <div class="doc-section">
+                <h2>🔑 Key Management</h2>
+
+                <div class="endpoint-card">
+                    <div class="endpoint-header">
+                        <span class="method-badge post">POST</span>
+                        <span class="endpoint-path">/v1/keys/generate</span>
+                    </div>
+                    <div class="endpoint-desc">Generuj nowy klucz API - <strong>PUBLICZNY ENDPOINT (bez wymagania klucza)</strong></div>
+                    <div class="endpoint-example">
+                        <div class="example-label">Przykład:</div>
+                        <div class="example-code" id="code-4">curl -X POST https://api.szymixsiorek.workers.dev/v1/keys/generate -H "Content-Type: application/json" -d "{\"owner\":\"szymixsiorek\"}"</div>
+                        <button class="copy-btn" onclick="copyCode('code-4')">Kopiuj</button>
+                    </div>
+                    <div class="endpoint-response">
+                        <div class="response-label">Odpowiedź:</div>
+                        <div style="font-family: monospace; font-size: 0.9em;">{ "status": "ok", "api_key": "sk_...", "owner": "szymixsiorek" }</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- IMAGE MANAGEMENT -->
+            <div class="doc-section">
                 <h2>📸 Image Management (KV Storage + Auto-Delete 24h)</h2>
-                <div class="endpoint">
-                    <div class="endpoint-title">POST /v1/images/upload</div>
-                    <div class="endpoint-desc">Wgraj obraz na serwer (wymaga klucza API)</div>
+
+                <div class="endpoint-card">
+                    <div class="endpoint-header">
+                        <span class="method-badge get">GET</span>
+                        <span class="endpoint-path">/v1/images</span>
+                    </div>
+                    <div class="endpoint-desc">Pobiera listę wszystkich obrazów z metadanymi</div>
+                    <div class="endpoint-example">
+                        <div class="example-label">Przykład:</div>
+                        <div class="example-code" id="code-5">curl https://api.szymixsiorek.workers.dev/v1/images -H "X-API-Key: chujcinamatke"</div>
+                        <button class="copy-btn" onclick="copyCode('code-5')">Kopiuj</button>
+                    </div>
+                    <div class="endpoint-response">
+                        <div class="response-label">Odpowiedź:</div>
+                        <div style="font-family: monospace; font-size: 0.9em;">{ "status": "ok", "images": {...}, "count": 5 }</div>
+                    </div>
                 </div>
-                <div class="endpoint">
-                    <div class="endpoint-title">GET /v1/images</div>
-                    <div class="endpoint-desc">Pobierz listę wszystkich obrazów (wymaga klucza API)</div>
+
+                <div class="endpoint-card">
+                    <div class="endpoint-header">
+                        <span class="method-badge post">POST</span>
+                        <span class="endpoint-path">/v1/images/upload</span>
+                    </div>
+                    <div class="endpoint-desc">Wgraj nowy obraz na serwer. Obraz wygaśnie po 24h.</div>
+                    <div class="endpoint-example">
+                        <div class="example-label">Przykład (PNG):</div>
+                        <div class="example-code" id="code-6">curl -X POST https://api.szymixsiorek.workers.dev/v1/images/upload -H "X-API-Key: chujcinamatke" -H "Content-Type: image/png" --data-binary @"C:\Users\Szymon\Downloads\image.png"</div>
+                        <button class="copy-btn" onclick="copyCode('code-6')">Kopiuj</button>
+                    </div>
+                    <div class="endpoint-example">
+                        <div class="example-label">Przykład (JPEG):</div>
+                        <div class="example-code" id="code-7">curl -X POST https://api.szymixsiorek.workers.dev/v1/images/upload -H "X-API-Key: chujcinamatke" -H "Content-Type: image/jpeg" --data-binary @"C:\Users\Szymon\Downloads\image.jpg"</div>
+                        <button class="copy-btn" onclick="copyCode('code-7')">Kopiuj</button>
+                    </div>
+                    <div class="endpoint-response">
+                        <div class="response-label">Odpowiedź:</div>
+                        <div style="font-family: monospace; font-size: 0.9em;">{ "status": "ok", "image": { "id": "img_...", "url": "https://...", "uploaded_by": "szymixsiorek" } }</div>
+                    </div>
                 </div>
-                <div class="endpoint">
-                    <div class="endpoint-title">GET /v1/images/{id}</div>
-                    <div class="endpoint-desc">Pobierz obraz (PUBLICZNY - bez klucza) - wyświetlanie bezpośrednie</div>
+
+                <div class="endpoint-card">
+                    <div class="endpoint-header">
+                        <span class="method-badge get">GET</span>
+                        <span class="endpoint-path">/v1/images/{id}</span>
+                    </div>
+                    <div class="endpoint-desc"><strong>PUBLICZNY ENDPOINT</strong> - Pobiera obraz bezpośrednio (bez klucza API)</div>
+                    <div class="endpoint-example">
+                        <div class="example-label">Przykład:</div>
+                        <div class="example-code" id="code-8">curl https://api.szymixsiorek.workers.dev/v1/images/img_GlcsZAW7ZOaFcZwV -o image.jpg</div>
+                        <button class="copy-btn" onclick="copyCode('code-8')">Kopiuj</button>
+                    </div>
+                    <div class="info-box" style="margin-top: 10px;">Możesz też otworzyć w przeglądarce: <code>https://api.szymixsiorek.workers.dev/v1/images/img_GlcsZAW7ZOaFcZwV</code></div>
                 </div>
-                <div class="endpoint">
-                    <div class="endpoint-title">DELETE /v1/images/{id}</div>
-                    <div class="endpoint-desc">Usuń obraz (wymaga klucza API)</div>
+
+                <div class="endpoint-card">
+                    <div class="endpoint-header">
+                        <span class="method-badge delete">DELETE</span>
+                        <span class="endpoint-path">/v1/images/{id}</span>
+                    </div>
+                    <div class="endpoint-desc">Usuń obraz z serwera</div>
+                    <div class="endpoint-example">
+                        <div class="example-label">Przykład:</div>
+                        <div class="example-code" id="code-9">curl -X DELETE https://api.szymixsiorek.workers.dev/v1/images/img_GlcsZAW7ZOaFcZwV -H "X-API-Key: chujcinamatke"</div>
+                        <button class="copy-btn" onclick="copyCode('code-9')">Kopiuj</button>
+                    </div>
                 </div>
             </div>
 
-            <div class="api-section">
+            <!-- CRUD OPERATIONS -->
+            <div class="doc-section">
                 <h2>📝 CRUD Operations</h2>
-                <div class="endpoint">
-                    <div class="endpoint-title">GET /v1/data</div>
-                    <div class="endpoint-desc">Pobierz wszystkie elementy (wymaga klucza API)</div>
+
+                <div class="endpoint-card">
+                    <div class="endpoint-header">
+                        <span class="method-badge get">GET</span>
+                        <span class="endpoint-path">/v1/data</span>
+                    </div>
+                    <div class="endpoint-desc">Pobiera wszystkie elementy z bazy danych</div>
+                    <div class="endpoint-example">
+                        <div class="example-label">Przykład:</div>
+                        <div class="example-code" id="code-10">curl https://api.szymixsiorek.workers.dev/v1/data -H "X-API-Key: chujcinamatke"</div>
+                        <button class="copy-btn" onclick="copyCode('code-10')">Kopiuj</button>
+                    </div>
                 </div>
-                <div class="endpoint">
-                    <div class="endpoint-title">POST /v1/data</div>
-                    <div class="endpoint-desc">Dodaj nowy element (wymaga: name)</div>
+
+                <div class="endpoint-card">
+                    <div class="endpoint-header">
+                        <span class="method-badge post">POST</span>
+                        <span class="endpoint-path">/v1/data</span>
+                    </div>
+                    <div class="endpoint-desc">Dodaj nowy element. Wymagane: <code>name</code>. Opcjonalnie: <code>id</code>, <code>description</code>, <code>value</code></div>
+                    <div class="endpoint-example">
+                        <div class="example-label">Bez custom ID (auto-generate):</div>
+                        <div class="example-code" id="code-11">curl -X POST https://api.szymixsiorek.workers.dev/v1/data -H "X-API-Key: chujcinamatke" -H "Content-Type: application/json" -d "{\"name\":\"Test Element\",\"description\":\"Opis\",\"value\":123}"</div>
+                        <button class="copy-btn" onclick="copyCode('code-11')">Kopiuj</button>
+                    </div>
+                    <div class="endpoint-example">
+                        <div class="example-label">Z custom ID:</div>
+                        <div class="example-code" id="code-12">curl -X POST https://api.szymixsiorek.workers.dev/v1/data -H "X-API-Key: chujcinamatke" -H "Content-Type: application/json" -d "{\"name\":\"Test\",\"id\":\"100\",\"value\":999}"</div>
+                        <button class="copy-btn" onclick="copyCode('code-12')">Kopiuj</button>
+                    </div>
+                    <div class="info-box" style="margin-top: 10px;"><strong>⚠️ Jeśli ID jest zajęte:</strong> API automatycznie przydzieli nearest available ID (np. 101, 102...)</div>
+                </div>
+
+                <div class="endpoint-card">
+                    <div class="endpoint-header">
+                        <span class="method-badge get">GET</span>
+                        <span class="endpoint-path">/v1/data/{id}</span>
+                    </div>
+                    <div class="endpoint-desc">Pobiera konkretny element po ID</div>
+                    <div class="endpoint-example">
+                        <div class="example-label">Przykład:</div>
+                        <div class="example-code" id="code-13">curl https://api.szymixsiorek.workers.dev/v1/data/100 -H "X-API-Key: chujcinamatke"</div>
+                        <button class="copy-btn" onclick="copyCode('code-13')">Kopiuj</button>
+                    </div>
+                </div>
+
+                <div class="endpoint-card">
+                    <div class="endpoint-header">
+                        <span class="method-badge put">PUT</span>
+                        <span class="endpoint-path">/v1/data/{id}</span>
+                    </div>
+                    <div class="endpoint-desc">Edytuje istniejący element. Możesz zaktualizować: <code>name</code>, <code>description</code>, <code>value</code></div>
+                    <div class="endpoint-example">
+                        <div class="example-label">Zmiana nazwy i wartości:</div>
+                        <div class="example-code" id="code-14">curl -X PUT https://api.szymixsiorek.workers.dev/v1/data/100 -H "X-API-Key: chujcinamatke" -H "Content-Type: application/json" -d "{\"name\":\"Nowa nazwa\",\"value\":999}"</div>
+                        <button class="copy-btn" onclick="copyCode('code-14')">Kopiuj</button>
+                    </div>
+                    <div class="endpoint-example">
+                        <div class="example-label">Zmiana tylko opisu:</div>
+                        <div class="example-code" id="code-15">curl -X PUT https://api.szymixsiorek.workers.dev/v1/data/100 -H "X-API-Key: chujcinamatke" -H "Content-Type: application/json" -d "{\"description\":\"Nowy opis\"}"</div>
+                        <button class="copy-btn" onclick="copyCode('code-15')">Kopiuj</button>
+                    </div>
+                </div>
+
+                <div class="endpoint-card">
+                    <div class="endpoint-header">
+                        <span class="method-badge delete">DELETE</span>
+                        <span class="endpoint-path">/v1/data/{id}</span>
+                    </div>
+                    <div class="endpoint-desc">Usuwa element z bazy danych</div>
+                    <div class="endpoint-example">
+                        <div class="example-label">Przykład:</div>
+                        <div class="example-code" id="code-16">curl -X DELETE https://api.szymixsiorek.workers.dev/v1/data/100 -H "X-API-Key: chujcinamatke"</div>
+                        <button class="copy-btn" onclick="copyCode('code-16')">Kopiuj</button>
+                    </div>
                 </div>
             </div>
 
-            <div class="api-section">
-                <h2>⚙️ Features</h2>
-                <div class="endpoint">
-                    <div class="endpoint-desc">✅ Auto-delete obrazów po 24 godzinach</div>
-                </div>
-                <div class="endpoint">
-                    <div class="endpoint-desc">✅ Licznik wygaśnięcia wyświetlany na obrazku</div>
-                </div>
-                <div class="endpoint">
-                    <div class="endpoint-desc">✅ Śledzenie kto wgrał obraz</div>
-                </div>
-                <div class="endpoint">
-                    <div class="endpoint-desc">✅ Publiczny dostęp do obrazów (bez klucza API)</div>
+            <!-- HTTP STATUS CODES -->
+            <div class="doc-section">
+                <h2>📊 HTTP Status Codes</h2>
+                <div class="endpoint-card">
+                    <div style="font-family: monospace; line-height: 1.8;">
+                        <div><span style="color: #4caf50; font-weight: bold;">200 OK</span> - Request zakończony pomyślnie</div>
+                        <div><span style="color: #2196F3; font-weight: bold;">201 Created</span> - Element został utworzony</div>
+                        <div><span style="color: #ff9800; font-weight: bold;">400 Bad Request</span> - Błąd w danych (np. brakuje wymaganego pola)</div>
+                        <div><span style="color: #f44336; font-weight: bold;">401 Unauthorized</span> - Zły/brak klucza API</div>
+                        <div><span style="color: #f44336; font-weight: bold;">404 Not Found</span> - Zasób nie istnieje</div>
+                        <div><span style="color: #f44336; font-weight: bold;">410 Gone</span> - Obraz wygasł (24h minimum)</div>
+                        <div><span style="color: #f44336; font-weight: bold;">500 Server Error</span> - Błąd wewnętrzny serwera</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -516,6 +807,18 @@
             if (tabName === 'gallery') {
                 loadImages();
             }
+        }
+
+        function copyCode(elementId) {
+            const codeElement = document.getElementById(elementId);
+            const text = codeElement.textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                const btn = event.target;
+                btn.textContent = '✅ Skopiowano!';
+                setTimeout(() => {
+                    btn.textContent = 'Kopiuj';
+                }, 2000);
+            });
         }
 
         async function generateKey() {
