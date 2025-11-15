@@ -36,6 +36,7 @@
             gap: 10px;
             margin-bottom: 20px;
             border-bottom: 2px solid rgba(255,255,255,0.3);
+            overflow-x: auto;
         }
 
         .tab-btn {
@@ -47,6 +48,7 @@
             border-radius: 5px 5px 0 0;
             font-weight: bold;
             transition: background 0.3s;
+            white-space: nowrap;
         }
 
         .tab-btn.active {
@@ -74,7 +76,7 @@
             display: block;
         }
 
-        /* API DOCS STYLES */
+        /* API DOCS */
         .api-section {
             margin-bottom: 30px;
         }
@@ -105,7 +107,94 @@
             font-size: 0.9em;
         }
 
-        /* GALLERY STYLES */
+        /* KEY GENERATOR */
+        .key-form {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #333;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .btn-generate {
+            background: #667eea;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+
+        .btn-generate:hover {
+            background: #5568d3;
+        }
+
+        .generated-key {
+            background: #e8f5e9;
+            border: 2px solid #4caf50;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .generated-key.show {
+            display: block;
+        }
+
+        .key-value {
+            background: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            word-break: break-all;
+            margin-bottom: 10px;
+            border: 1px solid #4caf50;
+        }
+
+        .btn-copy-key {
+            background: #4caf50;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .btn-copy-key:hover {
+            background: #45a049;
+        }
+
+        .warning-text {
+            color: #f44336;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        /* GALLERY */
         .gallery-header {
             display: flex;
             justify-content: space-between;
@@ -210,7 +299,17 @@
         .image-meta {
             color: #999;
             font-size: 0.8em;
+            margin-bottom: 8px;
+        }
+
+        .image-owner {
+            background: #e3f2fd;
+            color: #1976d2;
+            padding: 6px 8px;
+            border-radius: 3px;
+            font-size: 0.8em;
             margin-bottom: 10px;
+            font-weight: bold;
         }
 
         .image-url {
@@ -275,6 +374,19 @@
             font-size: 16px;
             grid-column: 1 / -1;
         }
+
+        .success-message {
+            background: #e8f5e9;
+            color: #2e7d32;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            display: none;
+        }
+
+        .success-message.show {
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -283,6 +395,7 @@
 
         <div class="tabs">
             <button class="tab-btn active" onclick="switchTab('api')">📚 API Documentation</button>
+            <button class="tab-btn" onclick="switchTab('keygen')">🔑 Generate API Key</button>
             <button class="tab-btn" onclick="switchTab('gallery')">📸 Image Gallery</button>
         </div>
 
@@ -326,18 +439,6 @@
                     <div class="endpoint-title">POST /v1/data</div>
                     <div class="endpoint-desc">Dodaj nowy element (wymaga: name)</div>
                 </div>
-                <div class="endpoint">
-                    <div class="endpoint-title">GET /v1/data/{id}</div>
-                    <div class="endpoint-desc">Pobierz konkretny element</div>
-                </div>
-                <div class="endpoint">
-                    <div class="endpoint-title">PUT /v1/data/{id}</div>
-                    <div class="endpoint-desc">Edytuj element</div>
-                </div>
-                <div class="endpoint">
-                    <div class="endpoint-title">DELETE /v1/data/{id}</div>
-                    <div class="endpoint-desc">Usuń element</div>
-                </div>
             </div>
 
             <div class="api-section">
@@ -349,10 +450,37 @@
                     <div class="endpoint-desc">✅ Licznik wygaśnięcia wyświetlany na obrazku</div>
                 </div>
                 <div class="endpoint">
-                    <div class="endpoint-desc">✅ Publiczny dostęp do obrazów (bez klucza API)</div>
+                    <div class="endpoint-desc">✅ Śledzenie kto wgrał obraz</div>
                 </div>
                 <div class="endpoint">
-                    <div class="endpoint-desc">✅ KV Storage (1GB Free)</div>
+                    <div class="endpoint-desc">✅ Publiczny dostęp do obrazów (bez klucza API)</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- KEY GENERATOR TAB -->
+        <div id="keygen" class="tab-content">
+            <h2 style="color: #667eea; margin-bottom: 20px;">🔑 Generuj nowy klucz API</h2>
+
+            <div class="key-form">
+                <div class="form-group">
+                    <label for="ownerName">Nazwa właściciela (owner):</label>
+                    <input type="text" id="ownerName" placeholder="np. szymixsiorek, admin, user123" value="">
+                </div>
+                <button class="btn-generate" onclick="generateKey()">Generuj nowy klucz</button>
+            </div>
+
+            <div id="successMessage" class="success-message"></div>
+
+            <div id="generatedKeyBox" class="generated-key">
+                <h3 style="color: #2e7d32; margin-bottom: 15px;">✅ Klucz został wygenerowany!</h3>
+                <div>
+                    <strong>Klucz API:</strong>
+                    <div class="key-value" id="keyValue"></div>
+                </div>
+                <button class="btn-copy-key" onclick="copyGeneratedKey()">📋 Kopiuj klucz</button>
+                <div class="warning-text">
+                    ⚠️ Zapisz ten klucz teraz - nie będzie więcej wyświetlany!
                 </div>
             </div>
         </div>
@@ -374,26 +502,59 @@
         const API_KEY = 'chujcinamatke';
 
         function switchTab(tabName) {
-            // Ukryj wszystkie tab contentu
             document.querySelectorAll('.tab-content').forEach(tab => {
                 tab.classList.remove('active');
             });
 
-            // Odznacz wszystkie przyciski
             document.querySelectorAll('.tab-btn').forEach(btn => {
                 btn.classList.remove('active');
             });
 
-            // Wyświetl wybrany tab
             document.getElementById(tabName).classList.add('active');
-
-            // Zaznacz przycisk
             event.target.classList.add('active');
 
-            // Jeśli to galeria - załaduj obrazy
             if (tabName === 'gallery') {
                 loadImages();
             }
+        }
+
+        async function generateKey() {
+            const ownerName = document.getElementById('ownerName').value.trim();
+            
+            if (!ownerName) {
+                alert('Podaj nazwę właściciela!');
+                return;
+            }
+
+            try {
+                const response = await fetch('https://api.szymixsiorek.workers.dev/v1/keys/generate', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ owner: ownerName }),
+                });
+
+                const data = await response.json();
+
+                if (data.status === 'ok') {
+                    document.getElementById('keyValue').textContent = data.api_key;
+                    document.getElementById('generatedKeyBox').classList.add('show');
+                    document.getElementById('successMessage').innerHTML = `✅ Klucz wygenerowany dla: <strong>${ownerName}</strong>`;
+                    document.getElementById('successMessage').classList.add('show');
+                } else {
+                    alert('Błąd: ' + data.message);
+                }
+            } catch (error) {
+                alert('Błąd: ' + error.message);
+            }
+        }
+
+        function copyGeneratedKey() {
+            const keyValue = document.getElementById('keyValue').textContent;
+            navigator.clipboard.writeText(keyValue).then(() => {
+                alert('✅ Klucz skopiowany!');
+            });
         }
 
         async function loadImages() {
@@ -421,7 +582,6 @@
                     container.appendChild(card);
                 });
 
-                // Uruchom liczniki
                 updateTimers();
                 setInterval(updateTimers, 1000);
 
@@ -447,7 +607,8 @@
                 </div>
                 <div class="image-info">
                     <div class="image-name">${image.filename}</div>
-                    <div class="image-meta">${sizeKB} KB</div>
+                    <div class="image-meta">${sizeKB} KB | ${new Date(image.created_at).toLocaleString('pl-PL')}</div>
+                    <div class="image-owner">👤 Wgrane przez: <strong>${image.uploaded_by}</strong></div>
                     <div class="image-url">${imageUrl}</div>
                     <div class="card-buttons">
                         <button class="btn btn-open" onclick="openImage('${image.id}')">Otwórz</button>
@@ -478,7 +639,6 @@
 
                 timer.querySelector('span').textContent = `${hours}h ${minutes}m ${seconds}s`;
 
-                // Zmień kolory
                 timer.classList.remove('warning', 'critical');
                 if (hours === 0 && minutes < 30) {
                     timer.classList.add('critical');
